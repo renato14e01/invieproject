@@ -5,6 +5,7 @@
     <title>Invie - Las mejores guitarras!!</title>
     <link href="https://fonts.googleapis.com/css?family=Allerta|Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="css/invie.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   </head>
   <body>
     <section id="portada" class="portada background"> <!--portada-->
@@ -12,7 +13,8 @@
         <figure class="logotipo"> <!--logotipo-->
           <img src="images/invie.png" width="186" height="60" alt="Invie logotipo" />
         </figure>
-        <nav class="menu"> <!-- menu -->
+        <span class="burger-button icon-menu" id="burger-button"></span>
+        <nav class="menu" id="menu"> <!-- menu -->
           <ul>
             <li>
               <a href="index.html">Home</a>
@@ -33,6 +35,13 @@
     </section>
     <section id="guitarras" class="guitarras contenedor"> <!-- guitarras  -->
       <h2>Nuestras Guitarras</h2><!-- titulo -->
+      <div class="video-arreglo">
+        <div class="video-demo">
+          <div class="video-responsive">
+            <iframe class="iframe" width="560" height="315" src="https://www.youtube.com/embed/R1dW8M4EqYY" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
       <article class="guitarra"> <!-- guitarra 1 -->
         <img  class="derecha" src="images/invie-acustica.png" width="300" alt="Invie Acústica"/>
         <div class="contenedor-guitarra-a">
@@ -96,5 +105,56 @@
         </form>
       </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.2/blazy.min.js"></script>
+    <script>
+      var consulta = window.matchMedia('(max-width: 500px)');
+      consulta.addListener(mediaQuery);
+
+      var $burgerButton = document.getElementById('burger-button');
+      var $menu = document.getElementById('menu');
+      var $closeButton = document.getElementById('close-button');
+
+      function toggleMenu()
+        {
+          $menu.classList.toggle("active")
+        };
+      function showMenu()
+        {
+          $menu.classList.add("active")
+        };
+      function hideMenu()
+        {
+          $menu.classList.remove("active")
+        };
+
+      function mediaQuery()
+        {
+          if (consulta.matches) {
+            console.log("se cumple");
+            $burgerButton.addEventListener("touchstart", toggleMenu);
+        }
+          else {
+            console.log("no se cumple");
+            $burgerButton.removeEventListener("touchstart", toggleMenu);
+        }
+      }
+      mediaQuery();
+      // lazy loading
+      var bLazy = new Blazy({
+        selector: "img"
+      });
+      // $burgerButton.addEventListener("touchstart", toggleMenu);
+      //
+      // function toggleMenu() {
+      //   $menu.classList.toggle("active")
+      // };
+
+      // gestos touch
+      var body = document.body;
+      var gestos = new Hammer(body);
+        gestos.on('swipeleft', showMenu);
+         gestos.on('swiperight', hideMenu);
+    </script>
   </body>
 </html>
